@@ -8,7 +8,7 @@
 # driver = webdriver.Chrome(service=service)
 #
 # # Open the webpage
-# driver.get("https://space.bilibili.com/3546743952116225/favlist?fid=3320705225")
+# driver.get("https://www.bilibili.com/watchlater/list?spm_id_from=333.999.0.0#/list")
 #
 # # Give the page some time to load dynamically loaded content (adjust if necessary)
 # driver.implicitly_wait(10)
@@ -27,11 +27,13 @@
 #
 # # Print the DataFrame
 # print(df)
-# df.to_csv("test.csv")
+# df.to_csv("test2.csv")
 #
 # # Close the browser
 # driver.quit()
 
+
+import time
 
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
@@ -46,12 +48,14 @@ service = Service()  # Ensure geckodriver is in your PATH
 driver = webdriver.Firefox(service=service)
 
 # Open the initial page
-url = "https://space.bilibili.com/3546743952116225/favlist?spm_id_from=333.880.0.0"
+# url = "https://space.bilibili.com/3546743952116225/favlist?spm_id_from=333.880.0.0"
+url = "https://space.bilibili.com/3546743952116225/favlist?fid=3447000325"
 driver.get(url)
 
 # Initialize list to store video links
 video_links = []
 
+time.sleep(120)
 
 # Function to extract video links from the current page
 def extract_video_links():
@@ -66,8 +70,9 @@ extract_video_links()
 
 # Example loop to handle multiple pages
 # Adjust the number of pages or conditions as needed
-for i in range(3):  # Change this range according to the number of pages you want to scrape
+for i in range(1):  # Change this range according to the number of pages you want to scrape
     try:
+        time.sleep(200)
         # Wait for the "Next" button to be clickable
         next_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="page-fav"]/div[1]/div[2]/div[3]/ul[2]/li[6]'))
@@ -98,4 +103,4 @@ driver.quit()
 
 # Print or save the DataFrame
 print(df)
-df.to_csv("test_1.csv")
+df.to_csv("bilibili-2025Mar2.csv")
